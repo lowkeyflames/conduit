@@ -7,12 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch Bundle Source
+      - name: Bundle Repository Content
         run: |
-          curl -L -o conduit-release.zip https://github.com/archive/refs/tags/v2.3.0.zip
-          unzip conduit-release.zip
+          mkdir -p package-output
+          cp -r ./* package-output/
       - name: Upload Finished Artifact Container
         uses: actions/upload-artifact@v4
         with:
           name: conduit-app-package
-          path: .
+          path: package-output/
