@@ -1,19 +1,18 @@
-name: Manual iOS Build
+name: Extract App Release
 on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: macos-14
+  download:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-      - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
-      - name: Upload Build Artifact
+      - name: Fetch Bundle Source
+        run: |
+          curl -L -o conduit-release.zip https://github.com
+          unzip conduit-release.zip
+      - name: Upload Finished Artifact Container
         uses: actions/upload-artifact@v4
         with:
-          name: conduit-app-build
-          path: build/ios/iphoneos/
+          name: conduit-app-package
+          path: .
