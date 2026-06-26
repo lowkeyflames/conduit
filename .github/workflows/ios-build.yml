@@ -7,12 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Bundle Repository Content
-        run: |
-          mkdir -p package-output
-          cp -r ./* package-output/
       - name: Upload Finished Artifact Container
         uses: actions/upload-artifact@v4
         with:
           name: conduit-app-package
-          path: package-output/
+          path: ${{ github.workspace }}
